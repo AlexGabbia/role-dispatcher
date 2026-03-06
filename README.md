@@ -2,7 +2,7 @@
 
 # 🤖 Role Dispatcher
 
-**Turn your AI coding tool into a team of 185+ IT specialists.**
+**Turn your AI coding tool into a team of 209+ IT specialists.**
 One request → the right experts → instant collaboration.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
@@ -10,7 +10,7 @@ One request → the right experts → instant collaboration.
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Skill-blueviolet)](https://docs.anthropic.com/en/docs/claude-code)
 [![Codex CLI](https://img.shields.io/badge/Codex_CLI-Skill-blue)](https://github.com/openai/codex)
 [![OpenCode](https://img.shields.io/badge/OpenCode-Skill-orange)](https://github.com/opencode-ai/opencode)
-[![Roles](https://img.shields.io/badge/IT_Roles-185+-green)](skill/role-dispatcher/references/role-index.md)
+[![Roles](https://img.shields.io/badge/IT_Roles-209+-green)](skill/role-dispatcher/references/role-index.md)
 
 </div>
 
@@ -101,7 +101,7 @@ Proceed? You can:
 
 ## ⭐ Features
 
-- 🧠 **185+ IT roles** across 13 professional categories, from Frontend Developer to CISO
+- 🧠 **209+ IT roles** across 13 professional categories, from Frontend Developer to CISO
 - 🌍 **Language-agnostic matching** — write in any language, Claude understands and matches internally
 - 🎯 **Smart dispatching** — 1 to 3 specialist agents per request, based on complexity
 - 🤝 **Propose & Confirm** — review and override roles and model before agents are dispatched
@@ -135,7 +135,7 @@ Proceed? You can:
 
 | # | Category | Roles | Examples |
 |---|----------|-------|---------|
-| 01 | 💻 Software Development | 14 | Full-Stack, Backend, Frontend, Mobile, API, Game Dev |
+| 01 | 💻 Software Development | 13 | Full-Stack, Backend, Frontend, Mobile, API, Desktop |
 | 02 | 🎨 Design & UX | 11 | Product Designer, UX/UI Designer, UX Researcher |
 | 03 | 📊 Data & AI | 14 | Data Scientist, ML Engineer, NLP Engineer, MLOps |
 | 04 | 🔒 Cybersecurity | 15 | CISO, Security Architect, Penetration Tester, SOC |
@@ -148,6 +148,7 @@ Proceed? You can:
 | 11 | 🛠️ IT Support | 13 | IT Service Manager, Help Desk, IT Auditor |
 | 12 | 📝 Consulting & Training | 13 | Enterprise Architect, Solution Architect, Tech Writer |
 | 13 | 🌟 Specialized | 18 | DPO, DevRel, AI Ethics, Accessibility, GIS |
+| 14 | 🎮 Game Development | 25 | Game Designer, Level Designer, Game AI, Multiplayer Engineer, 3D Artist |
 
 ---
 

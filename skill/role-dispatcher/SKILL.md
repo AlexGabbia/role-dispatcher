@@ -1,6 +1,6 @@
 ---
 name: role-dispatcher
-description: Analyzes user requests and dispatches specialized IT agents from 185+ professional roles. Supports multi-agent collaboration with review protocol, confidence-based model selection, and user override for roles and model.
+description: Analyzes user requests and dispatches specialized IT agents from 209+ professional roles. Supports multi-agent collaboration with review protocol, confidence-based model selection, and user override for roles and model.
 trigger_keywords: build, create, develop, design, deploy, debug, fix, optimize, architect, secure, test, analyze, migrate, automate, review, audit, plan, manage
 ---
 
@@ -8,7 +8,7 @@ trigger_keywords: build, create, develop, design, deploy, debug, fix, optimize, 
 
 ## Purpose
 
-Match user requests to the most relevant IT specialist roles (from 185+ across 13 categories), dispatch specialized agents, coordinate their collaboration, and synthesize results.
+Match user requests to the most relevant IT specialist roles (from 209+ across 13 categories), dispatch specialized agents, coordinate their collaboration, and synthesize results.
 
 ## Step 1: Detect Language & Skip Check
 

@@ -4,7 +4,7 @@ Quick-reference index for matching user requests to role categories.
 
 | # | File | Category | Keywords | Roles |
 |---|------|----------|----------|-------|
-| 01 | `01-software-development.md` | Software Development | coding, frontend, backend, mobile, API, app, development, react, node, python, java, typescript | 14 |
+| 01 | `01-software-development.md` | Software Development | coding, frontend, backend, mobile, API, app, development, react, node, python, java, typescript | 13 |
 | 02 | `02-design-ux.md` | Design & UX | design, UI, UX, interface, usability, accessibility, wireframe, prototype, figma | 11 |
 | 03 | `03-data-ai.md` | Data & AI | data, machine learning, AI, analytics, data science, NLP, deep learning, model, dataset, pipeline | 14 |
 | 04 | `04-cybersecurity.md` | Cybersecurity | security, vulnerability, penetration, firewall, GDPR, encryption, compliance, audit, SOC | 15 |
@@ -17,5 +17,6 @@ Quick-reference index for matching user requests to role categories.
 | 11 | `11-it-support-administration.md` | IT Support | support, help desk, assets, licenses, IT compliance, ITIL, service desk, procurement | 13 |
 | 12 | `12-consulting-training.md` | Consulting & Training | architecture, consulting, training, documentation, technical writing, evangelist | 13 |
 | 13 | `13-specialized-roles.md` | Specialized | digital transformation, DPO, accessibility, open source, DevRel, localization, ethics, GIS | 18 |
+| 14 | `14-game-development.md` | Game Development | game, videogame, game design, level design, Unity, Unreal, Godot, game AI, multiplayer, netcode, 3D, sprites, pixel art, VFX, shader, game engine, NPC, physics, ragdoll, HUD, gamedev | 25 |
 
-**Total: 185 roles across 13 categories**
+**Total: 209 roles across 14 categories**

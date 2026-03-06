@@ -1,9 +1,9 @@
 {
   "name": "@alexgabbia/role-dispatcher",
-  "version": "1.0.0",
-  "description": "185+ IT specialist roles for Claude Code, Codex CLI, and OpenCode",
+  "version": "1.1.0",
+  "description": "209+ IT specialist roles for Claude Code, Codex CLI, and OpenCode",
   "bin": {
-    "role-dispatcher": "./bin/install.js"
+    "role-dispatcher": "bin/install.js"
   },
   "files": [
     "bin/",
@@ -20,7 +20,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AlexGabbia/claude-role-dispatcher"
+    "url": "git+https://github.com/AlexGabbia/claude-role-dispatcher.git"
+  },
+  "homepage": "https://github.com/AlexGabbia/claude-role-dispatcher#readme",
+  "bugs": {
+    "url": "https://github.com/AlexGabbia/claude-role-dispatcher/issues"
   },
   "author": "AlexGabbia"
 }
