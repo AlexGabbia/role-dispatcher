@@ -11,38 +11,23 @@
 - **Review Agent**: No
 - **Model**: Sonnet (debugging, focused scope)
 
-### Agent Prompt
+### Propose & Confirm
+
 ```
-## Your Role: Database Administrator (DBA)
+**Proposed dispatch:**
+- Database Administrator (DBA): SQL query optimization and execution plan analysis
 
-### Expertise Profile
-- Domain: Infrastructure & Operations
-- Core competencies: Manages, optimizes and secures enterprise databases
-- Perspective: You approach problems from the viewpoint of a DBA with deep expertise in query optimization, indexing, execution plans
+**Model:** claude-sonnet-4-6 (medium complexity)
 
-### Behavioral Guidelines
-- Communication level: Clear, practical. The user has basic programming knowledge
-- Language: Italian
-- Actionability: Provide the optimized query with explanation of WHY each change helps
-
-### Your Task
-The user has a SQL query taking 30 seconds and needs optimization advice.
-
-### Output Format
-1. Analysis
-2. Recommendation
-3. Confidence: HIGH/MEDIUM/LOW
-4. Handoff Notes: Flag any aspects needing a different specialist
-5. Open Questions
+Proceed? You can:
+- **Enter/yes** to proceed as proposed
+- **Change roles**: e.g. "use Data Engineer instead"
+- **Change model**: e.g. "use opus" or "use haiku"
+- **Both**: e.g. "use Data Engineer with haiku"
 ```
 
-### Sample Output
-```
-**Agenti attivati:**
-- Database Administrator (DBA): ottimizzazione query SQL
-
-**Modello suggerito:** claude-sonnet-4-6 (complessita media)
-```
+**User**: "yes"
+-> Dispatcher proceeds with DBA agent on Sonnet.
 
 ---
 
@@ -58,24 +43,29 @@ The user has a SQL query taking 30 seconds and needs optimization advice.
 - **Review Agent**: Yes
 - **Model**: Sonnet (multi-file feature, but well-defined scope)
 
-### Agent Prompts
+### Propose & Confirm
 
-**Agent 1: Backend Developer** focuses on API design, auth implementation, database schema
-**Agent 2: Frontend Developer** focuses on React dashboard, UI components, API integration
+```
+**Proposed dispatch:**
+- Backend Developer: REST API design with authentication
+- Frontend Developer: React dashboard for user management
+
+**Model:** claude-sonnet-4-6 (medium complexity)
+
+Proceed? You can:
+- **Enter/yes** to proceed as proposed
+- **Change roles**: e.g. "add Security Engineer"
+- **Change model**: e.g. "use opus"
+- **Both**: e.g. "add Security Engineer with opus"
+```
+
+**User**: "yes"
+-> Dispatcher proceeds with 2 agents on Sonnet.
 
 ### Collaboration
 - Backend agent provides: endpoint list, auth flow, response schemas
 - Frontend agent receives handoff notes with API contract
 - Review agent checks: API contract matches frontend expectations, auth flow is consistent
-
-### Sample Output
-```
-**Agenti attivati:**
-- Backend Developer: progettazione API REST con autenticazione
-- Frontend Developer: dashboard React per gestione utenti
-
-**Modello suggerito:** claude-sonnet-4-6 (complessita media)
-```
 
 ---
 
@@ -91,6 +81,26 @@ The user has a SQL query taking 30 seconds and needs optimization advice.
 - **Review Agent**: Yes (mandatory for 3-agent coordination)
 - **Model**: Opus (architecture + multi-agent coordination)
 
+### Propose & Confirm
+
+```
+**Proposed dispatch:**
+- Software Architect: microservices boundaries and communication patterns
+- Backend Developer: service implementation and API contracts
+- DevOps Engineer: deployment strategy and CI/CD pipeline
+
+**Model:** claude-opus-4-6 (high complexity)
+
+Proceed? You can:
+- **Enter/yes** to proceed as proposed
+- **Change roles**: e.g. "use Security Architect instead of Backend Developer"
+- **Change model**: e.g. "use sonnet"
+- **Both**: e.g. "remove DevOps Engineer, use sonnet"
+```
+
+**User**: "yes"
+-> Dispatcher proceeds with 3 agents on Opus.
+
 ### Execution Sequence
 1. **Software Architect** (first): Defines microservice boundaries, communication patterns, data ownership
 2. **Backend Developer** (second): Receives architecture, designs service implementations, API contracts, data models
@@ -102,12 +112,35 @@ The user has a SQL query taking 30 seconds and needs optimization advice.
 - Validates all three outputs form a coherent, buildable system
 - Aggregate confidence: minimum of three agents
 
-### Sample Output
-```
-**Agenti attivati:**
-- Software Architect: progettazione architettura microservizi
-- Backend Developer: design implementativo dei servizi
-- DevOps Engineer: strategia di deployment e CI/CD
+---
 
-**Modello suggerito:** claude-opus-4-6 (complessita alta)
+## Example 4: User Override (Role + Model Change)
+
+**User request**: "Set up a CI/CD pipeline for our Node.js monorepo with staging and production environments"
+
+### Dispatch Decision
+- **Category match**: Infrastructure & Ops
+- **Roles**: DevOps Engineer + SRE
+- **Agents**: 2
+- **Review Agent**: Yes
+- **Model**: Sonnet
+
+### Propose & Confirm
+
 ```
+**Proposed dispatch:**
+- DevOps Engineer: CI/CD pipeline design and implementation
+- Site Reliability Engineer (SRE): staging/production environment setup and monitoring
+
+**Model:** claude-sonnet-4-6 (medium complexity)
+
+Proceed? You can:
+- **Enter/yes** to proceed as proposed
+- **Change roles**: e.g. "use Cloud Engineer instead of SRE"
+- **Change model**: e.g. "use opus" or "use haiku"
+- **Both**: e.g. "use only DevOps Engineer with haiku"
+```
+
+**User**: "use only DevOps Engineer with haiku"
+
+-> Dispatcher adjusts: 1 agent (DevOps Engineer), model changed to Haiku, no review agent needed.

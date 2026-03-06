@@ -1,8 +1,7 @@
 ---
 name: role-dispatcher
-description: Analyzes user requests and dispatches specialized IT agents from 185+ professional roles. Supports bilingual matching (EN/IT), multi-agent collaboration with review protocol, and confidence-based model selection.
-trigger_keywords_en: build, create, develop, design, deploy, debug, fix, optimize, architect, secure, test, analyze, migrate, automate, review, audit, plan, manage
-trigger_keywords_it: costruisci, crea, sviluppa, progetta, deploy, debug, correggi, ottimizza, architettura, sicurezza, testa, analizza, migra, automatizza, revisiona, pianifica, gestisci
+description: Analyzes user requests and dispatches specialized IT agents from 185+ professional roles. Supports multi-agent collaboration with review protocol, confidence-based model selection, and user override for roles and model.
+trigger_keywords: build, create, develop, design, deploy, debug, fix, optimize, architect, secure, test, analyze, migrate, automate, review, audit, plan, manage
 ---
 
 # Role Dispatcher v2
@@ -13,13 +12,13 @@ Match user requests to the most relevant IT specialist roles (from 185+ across 1
 
 ## Step 1: Detect Language & Skip Check
 
-**Language**: Detect the user's language from their message. Set `RESPONSE_LANGUAGE` for all agents.
+**Language**: Detect the user's language from their message. Set `RESPONSE_LANGUAGE` for all agents. The language is used only for responses — internal matching always uses English keywords.
 
 **Skip check**: If the request is a simple question, casual chat, or non-IT topic, respond directly. Do NOT activate the dispatch system.
 
 ## Step 2: Analyze & Match Categories
 
-Read `references/role-index.md` (relative to this skill's directory) and match the request against bilingual keywords.
+Read `references/role-index.md` (relative to this skill's directory) and match the request against English keywords. Claude intrinsically understands requests in any language — no translated keywords are needed.
 
 Identify 1-3 relevant categories. Then read ONLY the matching files from `assets/roles/`.
 
@@ -51,16 +50,25 @@ Read `references/model-selection-guide.md` for the full matrix. Quick reference:
 | Features, debugging, single-domain | `claude-sonnet-4-6` |
 | Architecture, security, multi-agent | `claude-opus-4-6` |
 
-## Step 6: Announce to User
+## Step 6: Propose & Confirm
+
+Present the proposed dispatch to the user and wait for confirmation before proceeding.
 
 ```
-**Agents activated for this request:**
+**Proposed dispatch:**
 - {Role Name}: {brief contribution description}
 - {Role Name}: {brief contribution description}
 
-**Suggested model:** {model} ({complexity} complexity)
-To change model, use `/model {model_id}` before proceeding.
+**Model:** {model} ({complexity} complexity)
+
+Proceed? You can:
+- **Enter/yes** to proceed as proposed
+- **Change roles**: e.g. "use Security Engineer instead of Backend Developer"
+- **Change model**: e.g. "use opus" or "use haiku"
+- **Both**: e.g. "use only Frontend Developer with sonnet"
 ```
+
+If the user modifies roles or model, adjust the dispatch accordingly and proceed. If the user confirms (or just says "yes" / presses Enter), proceed with the original proposal.
 
 ## Step 7: Dispatch Agents
 
@@ -98,3 +106,4 @@ If **APPROVE**: Synthesize into a single coherent response.
 - Use `Agent` tool with `subagent_type: "general-purpose"` for each agent
 - Agents run in parallel when INDEPENDENT, sequentially when DEPENDENT
 - LOW confidence from any agent triggers automatic ESCALATE
+- Always wait for user confirmation in Step 6 before dispatching agents

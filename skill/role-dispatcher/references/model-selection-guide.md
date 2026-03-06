@@ -37,3 +37,18 @@ Is it a simple question or small edit?
 - **Always use Opus** for: security-sensitive tasks, system architecture, tasks touching production infrastructure
 - **Never use Haiku** for: multi-file code changes, security analysis, architecture decisions
 - **User override**: If the user explicitly requests a model, respect their choice regardless of this guide
+
+## User Override Protocol
+
+During Step 6 (Propose & Confirm), the user can override the suggested model before agents are dispatched.
+
+**How it works:**
+1. The dispatcher proposes roles and a model based on the decision matrix above
+2. The user can accept or change the model in their confirmation response
+3. Valid override formats:
+   - `"use opus"` / `"use sonnet"` / `"use haiku"`
+   - `"use claude-opus-4-6"` (full model ID)
+   - Combined with role changes: `"use only Frontend Developer with haiku"`
+4. The dispatcher applies the override and proceeds with the user's chosen model
+
+**Important:** A user override always takes priority over the decision matrix. If the user picks a lighter model for a complex task, respect their choice — they may be optimizing for speed or cost.

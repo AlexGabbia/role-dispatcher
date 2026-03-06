@@ -72,7 +72,7 @@
   <text x="410" y="100" text-anchor="middle" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold">Match</text>
   <text x="410" y="120" text-anchor="middle" fill="#a5f3fc" font-family="Segoe UI, Arial, sans-serif" font-size="10">13 categories</text>
   <text x="410" y="135" text-anchor="middle" fill="#a5f3fc" font-family="Segoe UI, Arial, sans-serif" font-size="10">185+ roles</text>
-  <text x="410" y="150" text-anchor="middle" fill="#a5f3fc" font-family="Segoe UI, Arial, sans-serif" font-size="10">Bilingual index</text>
+  <text x="410" y="150" text-anchor="middle" fill="#a5f3fc" font-family="Segoe UI, Arial, sans-serif" font-size="10">Keyword index</text>
 
   <!-- Arrow 3->4 -->
   <line x1="470" y1="115" x2="505" y2="115" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
