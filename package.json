@@ -1,6 +1,6 @@
 {
   "name": "@alexgabbia/role-dispatcher",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Turn your AI coding tool into a team of 209+ IT specialists. Skill for Claude Code, Codex CLI, and OpenCode.",
   "bin": {
     "role-dispatcher": "bin/install.js"
