@@ -1,4 +1,9 @@
-# Claude Role Dispatcher
+<div align="center">
+
+# 🤖 Role Dispatcher
+
+**Turn your AI coding tool into a team of 185+ IT specialists.**
+One request → the right experts → instant collaboration.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![npm](https://img.shields.io/npm/v/@alexgabbia/role-dispatcher)](https://www.npmjs.com/package/@alexgabbia/role-dispatcher)
@@ -7,37 +12,27 @@
 [![OpenCode](https://img.shields.io/badge/OpenCode-Skill-orange)](https://github.com/opencode-ai/opencode)
 [![Roles](https://img.shields.io/badge/IT_Roles-185+-green)](skill/role-dispatcher/references/role-index.md)
 
-> Turn your AI coding tool into a team of 185+ IT specialists. One request, the right experts, instant collaboration.
+</div>
 
-![Hero Banner](images/hero-banner.svg)
+---
 
-## What is this?
+## 📖 What is this?
 
 A **skill for Claude Code, Codex CLI, and OpenCode** that analyzes your requests, identifies the most relevant IT specialist roles, and dispatches specialized agents that collaborate to give you expert-level answers.
 
 Instead of getting a generic response, you get answers from the perspective of the actual professionals who would handle that work in a real company.
 
-### Compatibility
+### ✅ Compatibility
 
 | Tool | Status | Skills Directory |
 |------|--------|-----------------|
-| Claude Code | Supported | `~/.claude/skills/` |
-| Codex CLI | Supported | `~/.codex/skills/` |
-| OpenCode | Supported | `~/.config/opencode/skills/` |
+| Claude Code | ✅ Supported | `~/.claude/skills/` |
+| Codex CLI | ✅ Supported | `~/.codex/skills/` |
+| OpenCode | ✅ Supported | `~/.config/opencode/skills/` |
 
-## Features
+---
 
-- **185+ IT roles** across 13 professional categories, from Frontend Developer to CISO
-- **Language-agnostic matching** - write in any language, Claude understands and matches internally
-- **Smart dispatching** - 1 to 3 specialist agents per request, based on complexity
-- **Propose & Confirm** - review and override roles and model before agents are dispatched
-- **Collaboration protocol** - agents coordinate through handoff notes and dependency checks
-- **Review Agent** - automatically validates multi-agent outputs for conflicts and completeness
-- **Confidence scoring** - every agent rates their confidence (HIGH/MEDIUM/LOW), with automatic escalation on LOW
-- **Model selection** - suggests the right Claude model (Haiku/Sonnet/Opus) based on task complexity, with user override
-- **Real examples** - includes 4 complete dispatching scenarios as reference
-
-## Quick Start
+## 🚀 Quick Start
 
 ### npx (Recommended)
 
@@ -56,7 +51,7 @@ npx @alexgabbia/role-dispatcher --opencode   # OpenCode only
 npx @alexgabbia/role-dispatcher --all        # All tools
 ```
 
-### Manual Installation
+### 🔧 Manual Installation
 
 Copy the skill folder to your tool's skills directory:
 
@@ -74,7 +69,7 @@ mkdir -p ~/.config/opencode/skills/role-dispatcher
 cp -r skill/role-dispatcher/* ~/.config/opencode/skills/role-dispatcher/
 ```
 
-### Script Installation
+### 📜 Script Installation
 
 ```bash
 # macOS / Linux
@@ -84,7 +79,7 @@ chmod +x install.sh && ./install.sh
 .\install.ps1
 ```
 
-### Verify
+### ✔️ Verify
 
 Open Claude Code and make a technical request. You should see the dispatcher propose agents and wait for your confirmation:
 
@@ -102,37 +97,61 @@ Proceed? You can:
 - Both: e.g. "use only Frontend Developer with sonnet"
 ```
 
-## How It Works
+---
+
+## ⭐ Features
+
+- 🧠 **185+ IT roles** across 13 professional categories, from Frontend Developer to CISO
+- 🌍 **Language-agnostic matching** — write in any language, Claude understands and matches internally
+- 🎯 **Smart dispatching** — 1 to 3 specialist agents per request, based on complexity
+- 🤝 **Propose & Confirm** — review and override roles and model before agents are dispatched
+- 🔄 **Collaboration protocol** — agents coordinate through handoff notes and dependency checks
+- 🔍 **Review Agent** — automatically validates multi-agent outputs for conflicts and completeness
+- 📊 **Confidence scoring** — every agent rates their confidence (HIGH/MEDIUM/LOW), with automatic escalation on LOW
+- ⚡ **Model selection** — suggests the right Claude model (Haiku/Sonnet/Opus) based on task complexity
+- 📚 **Real examples** — includes 4 complete dispatching scenarios as reference
+
+---
+
+## ⚙️ How It Works
+
+<div align="center">
 
 ![Workflow](images/workflow-diagram.svg)
 
-1. **Analyze** - Detects your language, matches your request against the English keyword index
-2. **Match** - Identifies relevant categories from the 13 available
-3. **Select** - Picks 1-3 specialist roles and determines the optimal model
-4. **Propose & Confirm** - Shows you the proposed roles and model, waits for your approval or changes
-5. **Dispatch** - Launches agents with structured prompts including expertise profiles and behavioral guidelines
-6. **Review** - (2+ agents) Validates completeness, detects conflicts, verifies integration
-7. **Synthesize** - Merges outputs into a single coherent answer with aggregate confidence
+</div>
 
-## Categories
+1. 🔎 **Analyze** — Detects your language, matches your request against the English keyword index
+2. 🗂️ **Match** — Identifies relevant categories from the 13 available
+3. 🎯 **Select** — Picks 1-3 specialist roles and determines the optimal model
+4. 👤 **Propose & Confirm** — Shows you the proposed roles and model, waits for your approval or changes
+5. 🚀 **Dispatch** — Launches agents with structured prompts including expertise profiles and behavioral guidelines
+6. 🔍 **Review** — (2+ agents) Validates completeness, detects conflicts, verifies integration
+7. ✅ **Synthesize** — Merges outputs into a single coherent answer with aggregate confidence
+
+---
+
+## 📋 Categories
 
 | # | Category | Roles | Examples |
 |---|----------|-------|---------|
-| 01 | Software Development | 14 | Full-Stack, Backend, Frontend, Mobile, API, Game Dev |
-| 02 | Design & UX | 11 | Product Designer, UX/UI Designer, UX Researcher |
-| 03 | Data & AI | 14 | Data Scientist, ML Engineer, NLP Engineer, MLOps |
-| 04 | Cybersecurity | 15 | CISO, Security Architect, Penetration Tester, SOC |
-| 05 | Infrastructure & Ops | 15 | Cloud Engineer, DevOps, SRE, DBA, Kubernetes |
-| 06 | Management | 17 | CTO, Product Manager, Scrum Master, Agile Coach |
-| 07 | QA & Testing | 10 | QA Engineer, SDET, Performance Tester |
-| 08 | Marketing & Content | 25 | SEO, Growth Hacker, Content Strategy, Social Media |
-| 09 | E-commerce | 10 | Marketplace Manager, Pricing Analyst, Catalog |
-| 10 | Sales & CS | 10 | RevOps, Customer Success, Sales Engineer, CRM |
-| 11 | IT Support | 13 | IT Service Manager, Help Desk, IT Auditor |
-| 12 | Consulting & Training | 13 | Enterprise Architect, Solution Architect, Tech Writer |
-| 13 | Specialized | 18 | DPO, DevRel, AI Ethics, Accessibility, GIS |
+| 01 | 💻 Software Development | 14 | Full-Stack, Backend, Frontend, Mobile, API, Game Dev |
+| 02 | 🎨 Design & UX | 11 | Product Designer, UX/UI Designer, UX Researcher |
+| 03 | 📊 Data & AI | 14 | Data Scientist, ML Engineer, NLP Engineer, MLOps |
+| 04 | 🔒 Cybersecurity | 15 | CISO, Security Architect, Penetration Tester, SOC |
+| 05 | ☁️ Infrastructure & Ops | 15 | Cloud Engineer, DevOps, SRE, DBA, Kubernetes |
+| 06 | 📈 Management | 17 | CTO, Product Manager, Scrum Master, Agile Coach |
+| 07 | 🧪 QA & Testing | 10 | QA Engineer, SDET, Performance Tester |
+| 08 | 📣 Marketing & Content | 25 | SEO, Growth Hacker, Content Strategy, Social Media |
+| 09 | 🛒 E-commerce | 10 | Marketplace Manager, Pricing Analyst, Catalog |
+| 10 | 🤝 Sales & CS | 10 | RevOps, Customer Success, Sales Engineer, CRM |
+| 11 | 🛠️ IT Support | 13 | IT Service Manager, Help Desk, IT Auditor |
+| 12 | 📝 Consulting & Training | 13 | Enterprise Architect, Solution Architect, Tech Writer |
+| 13 | 🌟 Specialized | 18 | DPO, DevRel, AI Ethics, Accessibility, GIS |
 
-## Examples
+---
+
+## 💡 Examples
 
 ### Simple: SQL Optimization
 ```
@@ -161,7 +180,8 @@ You: "yes"
 
 ### Complex: System Architecture
 ```
-You: "Design a microservices architecture for e-commerce with payments and real-time notifications"
+You: "Design a microservices architecture for e-commerce with payments
+     and real-time notifications"
 
 Dispatcher proposes:
   Agents: Software Architect + Backend Developer + DevOps Engineer
@@ -169,7 +189,7 @@ Dispatcher proposes:
   Model: Opus
 
 You: "yes"
-  -> Architecture -> Implementation plan -> Deployment strategy (sequential pipeline)
+  -> Architecture -> Implementation plan -> Deployment strategy
 ```
 
 ### User Override
@@ -184,7 +204,9 @@ You: "use only DevOps Engineer with haiku"
   -> Single agent dispatched on Haiku for faster, focused response
 ```
 
-## File Structure
+---
+
+## 📁 File Structure
 
 ```
 skill/role-dispatcher/
@@ -193,7 +215,7 @@ skill/role-dispatcher/
     role-index.md                   # Category index with English keywords
     prompt-templates.md             # Structured agent prompt templates
     collaboration-protocol.md       # Multi-agent coordination protocol
-    model-selection-guide.md        # Model selection decision matrix + override protocol
+    model-selection-guide.md        # Model selection decision matrix
     examples.md                     # 4 complete dispatching scenarios
   assets/roles/
     01-software-development.md      # 14 roles
@@ -211,15 +233,19 @@ skill/role-dispatcher/
     13-specialized-roles.md         # 18 roles
 ```
 
-## Contributing
+---
+
+## 🤝 Contributing
 
 Contributions welcome! You can:
 
-- **Add roles** - Submit a PR adding new roles to existing category files
-- **Add categories** - Create a new role file and update `references/role-index.md`
-- **Improve templates** - Enhance the agent prompt templates or collaboration protocol
-- **Add examples** - Contribute real-world dispatching scenarios to `references/examples.md`
+- ➕ **Add roles** — Submit a PR adding new roles to existing category files
+- 📂 **Add categories** — Create a new role file and update `references/role-index.md`
+- 📝 **Improve templates** — Enhance the agent prompt templates or collaboration protocol
+- 💡 **Add examples** — Contribute real-world dispatching scenarios to `references/examples.md`
 
-## License
+---
+
+## 📄 License
 
 [MIT](LICENSE)
