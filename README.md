@@ -1,18 +1,29 @@
 # Claude Role Dispatcher
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![npm](https://img.shields.io/npm/v/@alexgabbia/role-dispatcher)](https://www.npmjs.com/package/@alexgabbia/role-dispatcher)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Skill-blueviolet)](https://docs.anthropic.com/en/docs/claude-code)
+[![Codex CLI](https://img.shields.io/badge/Codex_CLI-Skill-blue)](https://github.com/openai/codex)
+[![OpenCode](https://img.shields.io/badge/OpenCode-Skill-orange)](https://github.com/opencode-ai/opencode)
 [![Roles](https://img.shields.io/badge/IT_Roles-185+-green)](skill/role-dispatcher/references/role-index.md)
 
-> Turn Claude into a team of 185+ IT specialists. One request, the right experts, instant collaboration.
+> Turn your AI coding tool into a team of 185+ IT specialists. One request, the right experts, instant collaboration.
 
 ![Hero Banner](images/hero-banner.png)
 
 ## What is this?
 
-A **skill for Claude Code** that analyzes your requests, identifies the most relevant IT specialist roles, and dispatches specialized agents that collaborate to give you expert-level answers.
+A **skill for Claude Code, Codex CLI, and OpenCode** that analyzes your requests, identifies the most relevant IT specialist roles, and dispatches specialized agents that collaborate to give you expert-level answers.
 
 Instead of getting a generic response, you get answers from the perspective of the actual professionals who would handle that work in a real company.
+
+### Compatibility
+
+| Tool | Status | Skills Directory |
+|------|--------|-----------------|
+| Claude Code | Supported | `~/.claude/skills/` |
+| Codex CLI | Supported | `~/.codex/skills/` |
+| OpenCode | Supported | `~/.config/opencode/skills/` |
 
 ## Features
 
@@ -28,18 +39,39 @@ Instead of getting a generic response, you get answers from the perspective of t
 
 ## Quick Start
 
-### Manual Installation
-
-Copy the skill folder to your Claude Code skills directory:
+### npx (Recommended)
 
 ```bash
-# macOS / Linux
+npx @alexgabbia/role-dispatcher
+```
+
+This auto-detects which tools you have installed and copies the skill to the right directory.
+
+You can also target a specific tool:
+
+```bash
+npx @alexgabbia/role-dispatcher --claude     # Claude Code only
+npx @alexgabbia/role-dispatcher --codex      # Codex CLI only
+npx @alexgabbia/role-dispatcher --opencode   # OpenCode only
+npx @alexgabbia/role-dispatcher --all        # All tools
+```
+
+### Manual Installation
+
+Copy the skill folder to your tool's skills directory:
+
+```bash
+# Claude Code
 mkdir -p ~/.claude/skills/role-dispatcher
 cp -r skill/role-dispatcher/* ~/.claude/skills/role-dispatcher/
 
-# Windows (PowerShell)
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.claude\skills\role-dispatcher"
-Copy-Item -Recurse skill\role-dispatcher\* "$env:USERPROFILE\.claude\skills\role-dispatcher\"
+# Codex CLI
+mkdir -p ~/.codex/skills/role-dispatcher
+cp -r skill/role-dispatcher/* ~/.codex/skills/role-dispatcher/
+
+# OpenCode
+mkdir -p ~/.config/opencode/skills/role-dispatcher
+cp -r skill/role-dispatcher/* ~/.config/opencode/skills/role-dispatcher/
 ```
 
 ### Script Installation
