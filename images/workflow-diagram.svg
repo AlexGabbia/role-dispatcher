@@ -1,128 +1,178 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 400" width="1000" height="400">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 480" width="1100" height="480">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#0f172a"/>
-      <stop offset="100%" style="stop-color:#1e293b"/>
+      <stop offset="0%" style="stop-color:#0a0a1a"/>
+      <stop offset="100%" style="stop-color:#111128"/>
     </linearGradient>
-    <linearGradient id="box1" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#3b82f6"/>
-      <stop offset="100%" style="stop-color:#2563eb"/>
+    <linearGradient id="step1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#3b82f6"/><stop offset="100%" style="stop-color:#1d4ed8"/>
     </linearGradient>
-    <linearGradient id="box2" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#8b5cf6"/>
-      <stop offset="100%" style="stop-color:#7c3aed"/>
+    <linearGradient id="step2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#8b5cf6"/><stop offset="100%" style="stop-color:#6d28d9"/>
     </linearGradient>
-    <linearGradient id="box3" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#06b6d4"/>
-      <stop offset="100%" style="stop-color:#0891b2"/>
+    <linearGradient id="step3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06b6d4"/><stop offset="100%" style="stop-color:#0e7490"/>
     </linearGradient>
-    <linearGradient id="box4" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#f59e0b"/>
-      <stop offset="100%" style="stop-color:#d97706"/>
+    <linearGradient id="step4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b"/><stop offset="100%" style="stop-color:#b45309"/>
     </linearGradient>
-    <linearGradient id="box5" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#10b981"/>
-      <stop offset="100%" style="stop-color:#059669"/>
+    <linearGradient id="step5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981"/><stop offset="100%" style="stop-color:#047857"/>
     </linearGradient>
-    <linearGradient id="box6" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#ef4444"/>
-      <stop offset="100%" style="stop-color:#dc2626"/>
+    <linearGradient id="step6" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ef4444"/><stop offset="100%" style="stop-color:#b91c1c"/>
     </linearGradient>
-    <linearGradient id="box7" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#ec4899"/>
-      <stop offset="100%" style="stop-color:#db2777"/>
+    <linearGradient id="step7" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ec4899"/><stop offset="100%" style="stop-color:#be185d"/>
     </linearGradient>
-    <filter id="shadow" x="-5%" y="-5%" width="110%" height="120%">
-      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.3"/>
+    <linearGradient id="doneGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#22c55e"/><stop offset="100%" style="stop-color:#15803d"/>
+    </linearGradient>
+    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
-    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-auto">
-      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <marker id="arrowGlow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-auto">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#7c3aed"/>
     </marker>
   </defs>
 
   <!-- Background -->
-  <rect width="1000" height="400" fill="url(#bg)" rx="12"/>
+  <rect width="1100" height="480" fill="url(#bg)" rx="16"/>
+
+  <!-- Subtle grid -->
+  <g opacity="0.03" stroke="#8b5cf6" stroke-width="0.5">
+    <line x1="0" y1="120" x2="1100" y2="120"/><line x1="0" y1="240" x2="1100" y2="240"/>
+    <line x1="0" y1="360" x2="1100" y2="360"/>
+    <line x1="275" y1="0" x2="275" y2="480"/><line x1="550" y1="0" x2="550" y2="480"/>
+    <line x1="825" y1="0" x2="825" y2="480"/>
+  </g>
 
   <!-- Title -->
-  <text x="500" y="40" text-anchor="middle" fill="#e2e8f0" font-family="Segoe UI, Arial, sans-serif" font-size="20" font-weight="bold">Role Dispatcher Workflow</text>
+  <text x="550" y="38" text-anchor="middle" fill="#e2e8f0" font-family="Segoe UI, system-ui, sans-serif" font-size="18" font-weight="bold" letter-spacing="2">HOW IT WORKS</text>
+  <line x1="440" y1="48" x2="660" y2="48" stroke="#7c3aed" stroke-width="1" opacity="0.4"/>
 
-  <!-- Row 1: Steps 1-4 -->
-  <!-- Step 1: User Request -->
-  <rect x="30" y="70" width="120" height="90" rx="10" fill="url(#box1)" filter="url(#shadow)"/>
-  <text x="90" y="105" text-anchor="middle" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold">User</text>
-  <text x="90" y="125" text-anchor="middle" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold">Request</text>
-  <text x="90" y="148" text-anchor="middle" fill="#bfdbfe" font-family="Segoe UI, Arial, sans-serif" font-size="10">EN / IT</text>
+  <!-- ====== ROW 1: Steps 1-4 ====== -->
+
+  <!-- Step 1: Analyze -->
+  <g filter="url(#shadow)">
+    <rect x="30" y="80" width="140" height="110" rx="12" fill="url(#step1)" opacity="0.95"/>
+    <rect x="30" y="80" width="140" height="110" rx="12" fill="none" stroke="#60a5fa" stroke-width="0.5" opacity="0.3"/>
+  </g>
+  <text x="58" y="102" fill="#bfdbfe" font-family="Segoe UI, system-ui, sans-serif" font-size="10" opacity="0.7">STEP 1</text>
+  <text x="100" y="127" text-anchor="middle" fill="white" font-family="Segoe UI, system-ui, sans-serif" font-size="15" font-weight="bold">Analyze</text>
+  <text x="100" y="148" text-anchor="middle" fill="#bfdbfe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Detect language</text>
+  <text x="100" y="163" text-anchor="middle" fill="#bfdbfe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Match keywords</text>
+  <text x="100" y="178" text-anchor="middle" fill="#bfdbfe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Assess complexity</text>
 
   <!-- Arrow 1->2 -->
-  <line x1="150" y1="115" x2="185" y2="115" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="170" y1="135" x2="210" y2="135" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
 
-  <!-- Step 2: Analyze -->
-  <rect x="190" y="70" width="120" height="90" rx="10" fill="url(#box2)" filter="url(#shadow)"/>
-  <text x="250" y="100" text-anchor="middle" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold">Analyze</text>
-  <text x="250" y="120" text-anchor="middle" fill="#ddd6fe" font-family="Segoe UI, Arial, sans-serif" font-size="10">Detect language</text>
-  <text x="250" y="135" text-anchor="middle" fill="#ddd6fe" font-family="Segoe UI, Arial, sans-serif" font-size="10">Match keywords</text>
-  <text x="250" y="150" text-anchor="middle" fill="#ddd6fe" font-family="Segoe UI, Arial, sans-serif" font-size="10">Assess complexity</text>
+  <!-- Step 2: Match -->
+  <g filter="url(#shadow)">
+    <rect x="215" y="80" width="140" height="110" rx="12" fill="url(#step2)" opacity="0.95"/>
+    <rect x="215" y="80" width="140" height="110" rx="12" fill="none" stroke="#a78bfa" stroke-width="0.5" opacity="0.3"/>
+  </g>
+  <text x="243" y="102" fill="#ddd6fe" font-family="Segoe UI, system-ui, sans-serif" font-size="10" opacity="0.7">STEP 2</text>
+  <text x="285" y="127" text-anchor="middle" fill="white" font-family="Segoe UI, system-ui, sans-serif" font-size="15" font-weight="bold">Match</text>
+  <text x="285" y="148" text-anchor="middle" fill="#ddd6fe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">13 categories</text>
+  <text x="285" y="163" text-anchor="middle" fill="#ddd6fe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">185+ roles</text>
+  <text x="285" y="178" text-anchor="middle" fill="#ddd6fe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Keyword index</text>
 
   <!-- Arrow 2->3 -->
-  <line x1="310" y1="115" x2="345" y2="115" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="355" y1="135" x2="395" y2="135" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
 
-  <!-- Step 3: Match Categories -->
-  <rect x="350" y="70" width="120" height="90" rx="10" fill="url(#box3)" filter="url(#shadow)"/>
-  <text x="410" y="100" text-anchor="middle" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold">Match</text>
-  <text x="410" y="120" text-anchor="middle" fill="#a5f3fc" font-family="Segoe UI, Arial, sans-serif" font-size="10">13 categories</text>
-  <text x="410" y="135" text-anchor="middle" fill="#a5f3fc" font-family="Segoe UI, Arial, sans-serif" font-size="10">185+ roles</text>
-  <text x="410" y="150" text-anchor="middle" fill="#a5f3fc" font-family="Segoe UI, Arial, sans-serif" font-size="10">Keyword index</text>
+  <!-- Step 3: Select -->
+  <g filter="url(#shadow)">
+    <rect x="400" y="80" width="140" height="110" rx="12" fill="url(#step3)" opacity="0.95"/>
+    <rect x="400" y="80" width="140" height="110" rx="12" fill="none" stroke="#22d3ee" stroke-width="0.5" opacity="0.3"/>
+  </g>
+  <text x="428" y="102" fill="#a5f3fc" font-family="Segoe UI, system-ui, sans-serif" font-size="10" opacity="0.7">STEP 3</text>
+  <text x="470" y="127" text-anchor="middle" fill="white" font-family="Segoe UI, system-ui, sans-serif" font-size="15" font-weight="bold">Select</text>
+  <text x="470" y="148" text-anchor="middle" fill="#a5f3fc" font-family="Segoe UI, system-ui, sans-serif" font-size="10">1-3 specialists</text>
+  <text x="470" y="163" text-anchor="middle" fill="#a5f3fc" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Choose model</text>
+  <text x="470" y="178" text-anchor="middle" fill="#a5f3fc" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Check dependencies</text>
 
   <!-- Arrow 3->4 -->
-  <line x1="470" y1="115" x2="505" y2="115" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="540" y1="135" x2="580" y2="135" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
 
-  <!-- Step 4: Select Roles -->
-  <rect x="510" y="70" width="120" height="90" rx="10" fill="url(#box4)" filter="url(#shadow)"/>
-  <text x="570" y="100" text-anchor="middle" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="13" font-weight="bold">Select Roles</text>
-  <text x="570" y="120" text-anchor="middle" fill="#fef3c7" font-family="Segoe UI, Arial, sans-serif" font-size="10">1-3 specialists</text>
-  <text x="570" y="135" text-anchor="middle" fill="#fef3c7" font-family="Segoe UI, Arial, sans-serif" font-size="10">Choose model</text>
-  <text x="570" y="150" text-anchor="middle" fill="#fef3c7" font-family="Segoe UI, Arial, sans-serif" font-size="10">Check dependencies</text>
+  <!-- Step 4: Propose & Confirm (highlighted as interactive) -->
+  <g filter="url(#shadow)">
+    <rect x="585" y="80" width="165" height="110" rx="12" fill="url(#step4)" opacity="0.95"/>
+    <rect x="585" y="80" width="165" height="110" rx="12" fill="none" stroke="#fbbf24" stroke-width="1" opacity="0.5"/>
+  </g>
+  <text x="613" y="102" fill="#fef3c7" font-family="Segoe UI, system-ui, sans-serif" font-size="10" opacity="0.7">STEP 4</text>
+  <text x="668" y="127" text-anchor="middle" fill="white" font-family="Segoe UI, system-ui, sans-serif" font-size="14" font-weight="bold">Propose &amp; Confirm</text>
+  <text x="668" y="148" text-anchor="middle" fill="#fef3c7" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Show proposed roles</text>
+  <text x="668" y="163" text-anchor="middle" fill="#fef3c7" font-family="Segoe UI, system-ui, sans-serif" font-size="10">User approves/changes</text>
+  <text x="668" y="178" text-anchor="middle" fill="#fef3c7" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Override model choice</text>
+  <!-- Interactive badge -->
+  <rect x="710" y="83" width="36" height="14" rx="7" fill="#fbbf24" opacity="0.3"/>
+  <text x="728" y="93" text-anchor="middle" fill="#fef3c7" font-family="Segoe UI, system-ui, sans-serif" font-size="7" font-weight="bold">USER</text>
 
-  <!-- Arrow 4 -> Row 2 (down + right) -->
-  <path d="M 630 115 L 660 115 L 660 200 L 60 200 L 60 240" stroke="#64748b" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+  <!-- Arrow Row1 -> Row2 (curved path) -->
+  <path d="M 750 135 L 790 135 Q 810 135 810 155 L 810 280 Q 810 300 790 300 L 100 300 Q 80 300 80 320 L 80 335" stroke="#7c3aed" stroke-width="2" fill="none" opacity="0.5" marker-end="url(#arrowGlow)"/>
 
-  <!-- Row 2: Steps 5-7 -->
-  <!-- Step 5: Dispatch Agents -->
-  <rect x="30" y="245" width="200" height="120" rx="10" fill="url(#box5)" filter="url(#shadow)"/>
-  <text x="130" y="275" text-anchor="middle" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold">Dispatch Agents</text>
-  <text x="130" y="300" text-anchor="middle" fill="#d1fae5" font-family="Segoe UI, Arial, sans-serif" font-size="11">Parallel if INDEPENDENT</text>
-  <text x="130" y="318" text-anchor="middle" fill="#d1fae5" font-family="Segoe UI, Arial, sans-serif" font-size="11">Sequential if DEPENDENT</text>
-  <text x="130" y="336" text-anchor="middle" fill="#d1fae5" font-family="Segoe UI, Arial, sans-serif" font-size="11">Confidence: HIGH/MED/LOW</text>
-  <text x="130" y="354" text-anchor="middle" fill="#d1fae5" font-family="Segoe UI, Arial, sans-serif" font-size="11">Handoff notes between agents</text>
+  <!-- ====== ROW 2: Steps 5-7 ====== -->
+
+  <!-- Step 5: Dispatch -->
+  <g filter="url(#shadow)">
+    <rect x="30" y="320" width="220" height="130" rx="12" fill="url(#step5)" opacity="0.95"/>
+    <rect x="30" y="320" width="220" height="130" rx="12" fill="none" stroke="#34d399" stroke-width="0.5" opacity="0.3"/>
+  </g>
+  <text x="58" y="342" fill="#d1fae5" font-family="Segoe UI, system-ui, sans-serif" font-size="10" opacity="0.7">STEP 5</text>
+  <text x="140" y="370" text-anchor="middle" fill="white" font-family="Segoe UI, system-ui, sans-serif" font-size="16" font-weight="bold">Dispatch Agents</text>
+  <text x="140" y="393" text-anchor="middle" fill="#d1fae5" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Parallel if INDEPENDENT</text>
+  <text x="140" y="408" text-anchor="middle" fill="#d1fae5" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Sequential if DEPENDENT</text>
+  <text x="140" y="423" text-anchor="middle" fill="#d1fae5" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Confidence: HIGH / MED / LOW</text>
+  <text x="140" y="438" text-anchor="middle" fill="#d1fae5" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Handoff notes between agents</text>
 
   <!-- Arrow 5->6 -->
-  <line x1="230" y1="305" x2="295" y2="305" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="250" y1="385" x2="300" y2="385" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
 
   <!-- Step 6: Review -->
-  <rect x="300" y="245" width="200" height="120" rx="10" fill="url(#box6)" filter="url(#shadow)"/>
-  <text x="400" y="275" text-anchor="middle" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold">Review Agent</text>
-  <text x="400" y="300" text-anchor="middle" fill="#fecaca" font-family="Segoe UI, Arial, sans-serif" font-size="11">Completeness check</text>
-  <text x="400" y="318" text-anchor="middle" fill="#fecaca" font-family="Segoe UI, Arial, sans-serif" font-size="11">Conflict detection</text>
-  <text x="400" y="336" text-anchor="middle" fill="#fecaca" font-family="Segoe UI, Arial, sans-serif" font-size="11">Integration verification</text>
-  <text x="400" y="354" text-anchor="middle" fill="#fecaca" font-family="Segoe UI, Arial, sans-serif" font-size="11">APPROVE / REVISE / ESCALATE</text>
+  <g filter="url(#shadow)">
+    <rect x="305" y="320" width="220" height="130" rx="12" fill="url(#step6)" opacity="0.95"/>
+    <rect x="305" y="320" width="220" height="130" rx="12" fill="none" stroke="#f87171" stroke-width="0.5" opacity="0.3"/>
+  </g>
+  <text x="333" y="342" fill="#fecaca" font-family="Segoe UI, system-ui, sans-serif" font-size="10" opacity="0.7">STEP 6</text>
+  <text x="415" y="370" text-anchor="middle" fill="white" font-family="Segoe UI, system-ui, sans-serif" font-size="16" font-weight="bold">Review Agent</text>
+  <text x="415" y="393" text-anchor="middle" fill="#fecaca" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Completeness check</text>
+  <text x="415" y="408" text-anchor="middle" fill="#fecaca" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Conflict detection</text>
+  <text x="415" y="423" text-anchor="middle" fill="#fecaca" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Integration verification</text>
+  <text x="415" y="438" text-anchor="middle" fill="#fecaca" font-family="Segoe UI, system-ui, sans-serif" font-size="10">APPROVE / REVISE / ESCALATE</text>
 
   <!-- Arrow 6->7 -->
-  <line x1="500" y1="305" x2="565" y2="305" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="525" y1="385" x2="575" y2="385" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
 
   <!-- Step 7: Synthesize -->
-  <rect x="570" y="245" width="200" height="120" rx="10" fill="url(#box7)" filter="url(#shadow)"/>
-  <text x="670" y="275" text-anchor="middle" fill="white" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold">Synthesize</text>
-  <text x="670" y="300" text-anchor="middle" fill="#fbcfe8" font-family="Segoe UI, Arial, sans-serif" font-size="11">Merge agent outputs</text>
-  <text x="670" y="318" text-anchor="middle" fill="#fbcfe8" font-family="Segoe UI, Arial, sans-serif" font-size="11">Resolve conflicts</text>
-  <text x="670" y="336" text-anchor="middle" fill="#fbcfe8" font-family="Segoe UI, Arial, sans-serif" font-size="11">Aggregate confidence</text>
-  <text x="670" y="354" text-anchor="middle" fill="#fbcfe8" font-family="Segoe UI, Arial, sans-serif" font-size="11">Present unified answer</text>
+  <g filter="url(#shadow)">
+    <rect x="580" y="320" width="220" height="130" rx="12" fill="url(#step7)" opacity="0.95"/>
+    <rect x="580" y="320" width="220" height="130" rx="12" fill="none" stroke="#f472b6" stroke-width="0.5" opacity="0.3"/>
+  </g>
+  <text x="608" y="342" fill="#fbcfe8" font-family="Segoe UI, system-ui, sans-serif" font-size="10" opacity="0.7">STEP 7</text>
+  <text x="690" y="370" text-anchor="middle" fill="white" font-family="Segoe UI, system-ui, sans-serif" font-size="16" font-weight="bold">Synthesize</text>
+  <text x="690" y="393" text-anchor="middle" fill="#fbcfe8" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Merge agent outputs</text>
+  <text x="690" y="408" text-anchor="middle" fill="#fbcfe8" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Resolve conflicts</text>
+  <text x="690" y="423" text-anchor="middle" fill="#fbcfe8" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Aggregate confidence</text>
+  <text x="690" y="438" text-anchor="middle" fill="#fbcfe8" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Present unified answer</text>
 
-  <!-- Output arrow -->
-  <line x1="770" y1="305" x2="820" y2="305" stroke="#64748b" stroke-width="2" marker-end="url(#arrow)"/>
-  <rect x="825" y="280" width="80" height="50" rx="25" fill="none" stroke="#22c55e" stroke-width="2"/>
-  <text x="865" y="310" text-anchor="middle" fill="#22c55e" font-family="Segoe UI, Arial, sans-serif" font-size="14" font-weight="bold">Done</text>
+  <!-- Arrow 7->Done -->
+  <line x1="800" y1="385" x2="850" y2="385" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
 
-  <!-- Note about review being optional for single agent -->
-  <text x="400" y="390" text-anchor="middle" fill="#475569" font-family="Segoe UI, Arial, sans-serif" font-size="10" font-style="italic">* Review Agent activates only when 2+ agents are dispatched</text>
+  <!-- Done badge -->
+  <g filter="url(#glow)">
+    <rect x="855" y="360" width="90" height="50" rx="25" fill="url(#doneGrad)" opacity="0.9"/>
+  </g>
+  <text x="900" y="391" text-anchor="middle" fill="white" font-family="Segoe UI, system-ui, sans-serif" font-size="16" font-weight="bold">Done</text>
+
+  <!-- Footer note -->
+  <text x="415" y="470" text-anchor="middle" fill="#475569" font-family="Segoe UI, system-ui, sans-serif" font-size="10" font-style="italic">* Review Agent activates only when 2+ agents are dispatched</text>
 </svg>

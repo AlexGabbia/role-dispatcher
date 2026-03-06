@@ -9,7 +9,7 @@
 
 > Turn your AI coding tool into a team of 185+ IT specialists. One request, the right experts, instant collaboration.
 
-![Hero Banner](images/hero-banner.png)
+![Hero Banner](images/hero-banner.svg)
 
 ## What is this?
 
