@@ -23,7 +23,7 @@
   <text x="40" y="82" fill="#dbeafe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">STEP 1</text>
   <text x="95" y="108" text-anchor="middle" fill="white" font-family="Segoe UI, system-ui, sans-serif" font-size="15" font-weight="bold">Analyze</text>
   <text x="95" y="128" text-anchor="middle" fill="#dbeafe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Detect language</text>
-  <text x="95" y="143" text-anchor="middle" fill="#dbeafe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Match keywords</text>
+  <text x="95" y="143" text-anchor="middle" fill="#dbeafe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Keyword + semantic scan</text>
   <text x="95" y="158" text-anchor="middle" fill="#dbeafe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Assess complexity</text>
 
   <!-- Arrow 1->2 -->
@@ -33,9 +33,9 @@
   <rect x="215" y="60" width="150" height="120" rx="10" fill="#8b5cf6" stroke="#7c3aed" stroke-width="1.5"/>
   <text x="235" y="82" fill="#ede9fe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">STEP 2</text>
   <text x="290" y="108" text-anchor="middle" fill="white" font-family="Segoe UI, system-ui, sans-serif" font-size="15" font-weight="bold">Match</text>
-  <text x="290" y="128" text-anchor="middle" fill="#ede9fe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">13 categories</text>
-  <text x="290" y="143" text-anchor="middle" fill="#ede9fe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">185+ roles</text>
-  <text x="290" y="158" text-anchor="middle" fill="#ede9fe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Keyword index</text>
+  <text x="290" y="128" text-anchor="middle" fill="#ede9fe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">14 categories</text>
+  <text x="290" y="143" text-anchor="middle" fill="#ede9fe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">209+ roles</text>
+  <text x="290" y="158" text-anchor="middle" fill="#ede9fe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Key Skills matching</text>
 
   <!-- Arrow 2->3 -->
   <line x1="365" y1="120" x2="405" y2="120" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
@@ -46,7 +46,7 @@
   <text x="485" y="108" text-anchor="middle" fill="white" font-family="Segoe UI, system-ui, sans-serif" font-size="15" font-weight="bold">Select</text>
   <text x="485" y="128" text-anchor="middle" fill="#cffafe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">1-3 specialists</text>
   <text x="485" y="143" text-anchor="middle" fill="#cffafe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Choose model</text>
-  <text x="485" y="158" text-anchor="middle" fill="#cffafe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Check dependencies</text>
+  <text x="485" y="158" text-anchor="middle" fill="#cffafe" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Classify dependencies</text>
 
   <!-- Arrow 3->4 -->
   <line x1="560" y1="120" x2="600" y2="120" stroke="#94a3b8" stroke-width="2" marker-end="url(#arrow)"/>
@@ -57,9 +57,9 @@
   <text x="755" y="74" text-anchor="middle" fill="#78350f" font-family="Segoe UI, system-ui, sans-serif" font-size="8" font-weight="bold">USER</text>
   <text x="625" y="82" fill="#fef3c7" font-family="Segoe UI, system-ui, sans-serif" font-size="10">STEP 4</text>
   <text x="693" y="108" text-anchor="middle" fill="white" font-family="Segoe UI, system-ui, sans-serif" font-size="14" font-weight="bold">Propose &amp; Confirm</text>
-  <text x="693" y="128" text-anchor="middle" fill="#fef3c7" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Show proposed roles</text>
+  <text x="693" y="128" text-anchor="middle" fill="#fef3c7" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Show roles + key skills</text>
   <text x="693" y="143" text-anchor="middle" fill="#fef3c7" font-family="Segoe UI, system-ui, sans-serif" font-size="10">User approves/changes</text>
-  <text x="693" y="158" text-anchor="middle" fill="#fef3c7" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Override model choice</text>
+  <text x="693" y="158" text-anchor="middle" fill="#fef3c7" font-family="Segoe UI, system-ui, sans-serif" font-size="10">Override roles or model</text>
 
   <!-- Connector Row 1 -> Row 2 -->
   <path d="M 780 120 L 820 120 L 820 310 L 80 310 L 80 330" stroke="#94a3b8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
