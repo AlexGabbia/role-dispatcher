@@ -26,9 +26,11 @@ Context persistence uses a `.dispatch/` directory in the project root:
   {agent-id}-log.md     # Work log per agent (e.g., backend-01-log.md)
 ```
 
+The dispatcher creates `.dispatch/` and adds `.dispatch/` to `.gitignore` if not already present.
+
 ## STATE.md Format (< 50 lines)
 
-Created by the dispatcher before spawning agents. Updated by the dispatcher or Team Lead as agents complete work.
+Created by the dispatcher before spawning agents. Updated by the dispatcher, Team Lead, **and by each agent when it checkpoints** (agents update their own status line).
 
 ```markdown
 # Dispatch State
@@ -54,7 +56,9 @@ Created by the dispatcher before spawning agents. Updated by the dispatcher or T
 - security-01: Delivered auth spec, JWT + RBAC approach
 ```
 
-## Agent Work Log Format (< 80 lines)
+**Agent duty**: When an agent checkpoints, it MUST update its own status line in STATE.md (Status Summary section and Agent Roster status column). This keeps the global state current for other agents and the dispatcher.
+
+## Agent Work Log Format (< 120 lines)
 
 Each agent maintains its own log at `.dispatch/{AGENT_ID}-log.md`. The log is the agent's persistent memory across context restarts.
 
@@ -62,8 +66,8 @@ Each agent maintains its own log at `.dispatch/{AGENT_ID}-log.md`. The log is th
 ---
 agent: Backend Developer
 id: backend-01
-phase: 2 of 4
-tool_calls: ~37
+continuation: 0
+files_touched: 14
 status: IN_PROGRESS
 last_updated: 2026-03-06T14:30:00
 ---
@@ -96,24 +100,33 @@ last_updated: 2026-03-06T14:30:00
 
 ### Log Rules
 
-- **Max 80 lines**. If the log grows beyond this, summarize older completed items into a single line (e.g., "Phase 1: schema + auth + project setup [DONE]")
-- **YAML frontmatter** is mandatory: agent, id, phase, tool_calls (approximate), status, last_updated
+- **Max 120 lines**. If the log grows beyond this, summarize older completed items into a single line (e.g., "Phase 1: schema + auth + project setup [DONE]")
+- **YAML frontmatter** is mandatory: agent, id, continuation, files_touched, status, last_updated
+- **`continuation`**: Set by the dispatcher. First agent gets `0`, first continuation gets `1`, etc. The agent does NOT change this value
+- **`files_touched`**: The agent tracks how many distinct files it has read or modified. This is the primary checkpoint metric — increment it as you work
 - **Status values**: `IN_PROGRESS`, `CHECKPOINT`, `COMPLETE`
 - Update the log at every checkpoint, not continuously
 
 ## Checkpoint Triggers
 
-Agents self-monitor and checkpoint based on these heuristics (in priority order):
+Agents self-monitor and checkpoint based on these heuristics (in priority order).
+
+**THIS IS NON-NEGOTIABLE.** Agents MUST checkpoint when any trigger is hit. Before ending your response, verify: "Have I hit any checkpoint trigger? If yes, have I written my log?"
 
 ### 1. Phase Boundary (highest priority)
-After completing a logical phase of work (e.g., finishing all database work before moving to API layer). **Always checkpoint at phase boundaries** even if tool call count is low.
+After completing a logical phase of work (e.g., finishing all database work before moving to API layer). **Always checkpoint at phase boundaries** even if other metrics are low.
 
-### 2. Tool Call Count
+### 2. Files Touched (primary metric)
+Track how many distinct files you have read or modified:
+- **15+ files touched**: Write/update the work log (soft checkpoint)
+- **25+ files touched**: If significant work remains, write the log and signal for continuation (hard checkpoint)
+
+This is the most reliable metric because agents can track it precisely.
+
+### 3. Tool Call Estimate (secondary metric)
+As a secondary heuristic (agents cannot count precisely, so estimate conservatively):
 - **~25 tool calls**: Write/update the work log (soft checkpoint)
 - **~40 tool calls**: If significant work remains, write the log and signal for continuation (hard checkpoint)
-
-### 3. File Count
-If the agent has read or modified **15+ distinct files**, checkpoint regardless of tool call count.
 
 ### 4. Self-Monitoring
 Checkpoint immediately if the agent notices:
@@ -121,18 +134,33 @@ Checkpoint immediately if the agent notices:
 - Losing precision in its responses or forgetting earlier decisions
 - Repeating analysis it already performed
 
+These are symptoms of context saturation. Do not ignore them.
+
 ### Phase-First Rule
 If the agent is close to finishing a phase (< 5 tool calls away), **finish the phase first** before checkpointing. A clean phase boundary makes continuation much smoother.
+
+### Pre-Exit Verification (MANDATORY)
+Before ending your response — whether completing the task or not — run this check:
+1. Have I touched 15+ files? → Write log if not already done
+2. Am I ending with significant work remaining? → Signal CHECKPOINT:CONTINUE
+3. Have I updated my status in `.dispatch/STATE.md`? → Update it
 
 ## Checkpoint Signal
 
 When an agent needs continuation (hard checkpoint):
 
-**Subagent mode**: End the output with:
+**Subagent mode**: End the output with one of these accepted formats:
 ```
 <!-- CHECKPOINT:CONTINUE -->
 Checkpoint: Work log saved to `.dispatch/{AGENT_ID}-log.md`. Remaining work: {brief summary}.
 ```
+
+Accepted variations (the dispatcher checks for any of these):
+- `<!-- CHECKPOINT:CONTINUE -->`
+- `CHECKPOINT:CONTINUE`
+- `**CHECKPOINT**: Work log saved to`
+
+The dispatcher scans the **last 10 lines** of the agent's output for any of these patterns. Exact formatting is not critical — the keyword `CHECKPOINT:CONTINUE` in any form is sufficient.
 
 **Agent Team mode**: Send a message to the Team Lead:
 ```
@@ -146,15 +174,43 @@ When a checkpoint signal is received:
 ### Subagent Mode
 1. Dispatcher reads `.dispatch/{AGENT_ID}-log.md`
 2. Dispatcher spawns a **new** Agent tool call with the same role, using the **Continuation Agent Template** from `references/prompt-templates.md`
-3. The fresh agent reads the log and resumes from "Next Steps"
-4. The continuation agent follows the same checkpoint protocol — it may checkpoint again if needed
-5. Repeat until the agent completes without a CHECKPOINT signal
+3. Dispatcher sets `continuation: N+1` in the new agent's prompt (where N is the previous value)
+4. The fresh agent reads the log and resumes from "Next Steps"
+5. The continuation agent follows the same checkpoint protocol — it may checkpoint again if needed
+6. Repeat until the agent completes without a CHECKPOINT signal
 
 ### Agent Team Mode
 1. Team Lead reads the teammate's log file
 2. Team Lead spawns a **new** teammate with the same role and a reference to the log file
 3. The fresh teammate reads the log, resumes work, and reports back to the Team Lead
 4. Team Lead updates `.dispatch/STATE.md` to reflect the continuation
+
+### Maximum Continuations
+An agent can be continued at most **5 times** (continuation 0 through 5 = 6 total runs). If an agent reaches continuation 5 and still signals CHECKPOINT:
+- **Subagent mode**: The dispatcher stops the continuation loop, presents what has been completed so far, and asks the user how to proceed
+- **Agent Team mode**: The Team Lead escalates to the dispatcher with a summary of what remains incomplete
+
+This prevents infinite continuation loops. If a task genuinely needs more than 6 runs per agent, it should be decomposed into smaller sub-tasks.
+
+## Failure Recovery
+
+When an agent fails or produces corrupted output without a proper checkpoint:
+
+### No Log File Exists
+If the agent ends (crash, timeout, or unexpected termination) and no `.dispatch/{AGENT_ID}-log.md` exists:
+1. The dispatcher spawns a fresh agent with the same role from scratch (continuation: 0)
+2. The dispatcher notes in STATE.md: "Previous instance failed without checkpoint. Restarting."
+
+### Log File Exists but No CHECKPOINT Signal
+If the agent ends without a CHECKPOINT signal but a log file exists with status `IN_PROGRESS`:
+1. The dispatcher reads the log to assess progress
+2. If "Next Steps" is non-empty, the dispatcher spawns a continuation agent pointing to the log
+3. If "Next Steps" is empty or the log indicates near-completion, the dispatcher marks the agent as COMPLETE
+
+### Corrupted or Incomplete Log
+If the log file exists but is malformed (no YAML frontmatter, missing required sections):
+1. The dispatcher extracts whatever useful information it can (file paths, decisions)
+2. Spawns a fresh agent (continuation: 0) with a note: "A previous instance left partial progress. Relevant files: {extracted file list}. Verify their state before proceeding."
 
 ## Relationship with Other Protocols
 
@@ -170,5 +226,5 @@ All three coexist. Key decisions recorded in a work log also serve as context fo
 
 After the task completes and the dispatcher synthesizes the final result:
 - Inform the user that dispatch state is saved in `.dispatch/`
-- Suggest adding `.dispatch/` to `.gitignore` if desired
+- The `.dispatch/` directory is already in `.gitignore` (added automatically by the dispatcher)
 - The `.dispatch/` directory can be deleted after the task is fully complete, or kept for reference

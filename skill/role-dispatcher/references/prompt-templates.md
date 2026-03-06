@@ -64,20 +64,27 @@ For multi-agent:
 Add this section to agent prompts for FULL tasks with persistence enabled:
 
 ```
-### Context Persistence
+### Context Persistence (NON-NEGOTIABLE)
 - **Your work log**: `.dispatch/{AGENT_ID}-log.md`
-- **Checkpoint frequency**: Write your work log every ~25 tool calls and at every
-  natural phase boundary (e.g., finishing a component, completing a feature)
-- **Log format**: YAML frontmatter (agent, id, phase, tool_calls, status, last_updated)
-  + sections: Completed / In Progress / Key Decisions / Next Steps / Files Modified
-- **Max log size**: 80 lines. Summarize older completed items if needed
-- **Continuation signal**: If you reach ~40 tool calls with more work remaining,
-  write your log with status CHECKPOINT and end your response with
-  `<!-- CHECKPOINT:CONTINUE -->` plus a human-readable note about remaining work
-- **Phase-first rule**: If you are close to finishing a phase, finish it before
-  checkpointing. Clean phase boundaries make continuation smoother
-- **Self-monitoring**: If you notice yourself re-reading files already processed
-  or losing precision, checkpoint immediately
+- **Global state**: `.dispatch/STATE.md` — update your status line when you checkpoint
+- **Track files touched**: Count every distinct file you read or modify. This is your
+  primary checkpoint metric. Write it in your log's `files_touched` frontmatter field
+- **Checkpoint triggers** (checkpoint when ANY is hit):
+  - Phase boundary: finished a logical phase of work → always checkpoint
+  - 15+ files touched → write/update your work log (soft checkpoint)
+  - 25+ files touched with work remaining → write log + signal continuation (hard checkpoint)
+  - ~40 tool calls (estimate) with work remaining → hard checkpoint
+  - Self-monitoring: re-reading files, losing precision → checkpoint immediately
+- **Log format**: YAML frontmatter (agent, id, continuation, files_touched, status,
+  last_updated) + sections: Completed / In Progress / Key Decisions / Next Steps / Files Modified
+- **Max log size**: 120 lines. Summarize older completed items if needed
+- **Continuation signal**: Write your log with status CHECKPOINT and end your response
+  with `<!-- CHECKPOINT:CONTINUE -->` plus a human-readable note about remaining work
+- **Phase-first rule**: If close to finishing a phase, finish it before checkpointing
+- **Pre-exit verification** (MANDATORY): Before ending your response, check:
+  1. Have I touched 15+ files? → Write log if not done
+  2. Am I ending with significant work remaining? → Signal CHECKPOINT:CONTINUE
+  3. Have I updated my status in STATE.md? → Update it
 ```
 
 ## Review Agent Template
@@ -125,6 +132,11 @@ You are the **Team Lead** for this project. In addition to your specialist role,
 3. **Monitor** — check task progress, send messages to teammates who are stuck
 4. **Resolve conflicts** — when teammates disagree, evaluate trade-offs and decide (or escalate to the user)
 5. **Synthesize** — once all tasks are complete, review all contributions and deliver a unified result
+6. **Manage checkpoints** (if PERSIST=YES) — when a teammate sends a CHECKPOINT message:
+   a. Read their work log at `.dispatch/{AGENT_ID}-log.md`
+   b. Spawn a fresh replacement teammate with the same role, pointing to the log file
+   c. Update `.dispatch/STATE.md` to reflect the continuation
+   d. Enforce the max 5 continuations limit per teammate — escalate if exceeded
 
 ### Project Goal
 {USER_REQUEST}
@@ -197,10 +209,14 @@ Used when re-spawning an agent after a CHECKPOINT signal:
 - **Perspective**: You approach problems as a {ROLE_NAME} with deep expertise in {KEY_SKILLS}
 
 ### Continuation Context
-You are continuing the work of a previous {ROLE_NAME} agent.
+You are continuing the work of a previous {ROLE_NAME} agent (continuation #{CONTINUATION_NUMBER}).
 **Read your work log first**: `.dispatch/{AGENT_ID}-log.md`
 Resume from "Next Steps". Do NOT repeat completed work.
-Your tool call counter resets. Continue checkpointing as normal.
+Your files_touched counter resets to 0. Continue checkpointing as normal.
+**Max continuations**: 5. If you are continuation #5, prioritize completing the most
+critical remaining work — this is your last run.
+
+{MULTI_AGENT_SECTION}
 
 ### Your Task
 {USER_REQUEST}

@@ -148,7 +148,7 @@ Each agent prompt MUST include:
 
 **Parallel dispatch**: Launch all INDEPENDENT agents in a single message with multiple Agent tool calls. For DEPENDENT agents, wait for each to complete before dispatching the next with handoff notes.
 
-**Context persistence** (if PERSIST=YES): Before dispatching, create `.dispatch/STATE.md` with the project goal, agent roster, and dispatch mode. Add context persistence instructions to each agent's prompt (see `references/prompt-templates.md` - Context Persistence Section). Agents will self-checkpoint and signal if they need continuation.
+**Context persistence** (if PERSIST=YES): Create the `.dispatch/` directory and add `.dispatch/` to `.gitignore` if not already present. Then create `.dispatch/STATE.md` with the project goal, agent roster, and dispatch mode. Add context persistence instructions to each agent's prompt (see `references/prompt-templates.md` - Context Persistence Section). Agents will self-checkpoint and signal if they need continuation.
 
 ### Path B: Agent Team Dispatch (for 5+ agents or when deep collaboration is needed)
 
@@ -164,16 +164,20 @@ Use the `TeamCreate` tool to create a team, then spawn teammates via the `Agent`
 4. **Self-coordination**: Teammates claim tasks, communicate via messaging, and deliver their parts. The dispatcher does NOT need to manually orchestrate — the team self-coordinates
 5. **Completion**: The Team Lead synthesizes all contributions and delivers the final result
 
-**Context persistence** (if PERSIST=YES): Create `.dispatch/STATE.md` before spawning the team. Instruct the Team Lead to enforce checkpointing: teammates must write their progress to `.dispatch/{AGENT_ID}-log.md` periodically. If a teammate signals CHECKPOINT via message, the Team Lead spawns a fresh replacement pointing to the log file.
+**Context persistence** (if PERSIST=YES): Create the `.dispatch/` directory and add `.dispatch/` to `.gitignore` if not already present. Then create `.dispatch/STATE.md` before spawning the team. Instruct the Team Lead to enforce checkpointing: teammates must write their progress to `.dispatch/{AGENT_ID}-log.md` periodically. If a teammate signals CHECKPOINT via message, the Team Lead spawns a fresh replacement pointing to the log file (max 5 continuations per teammate).
 
 ## Step 7.5: Checkpoint & Continuation (if PERSIST=YES)
 
-When a subagent's output contains `<!-- CHECKPOINT:CONTINUE -->`:
+When a subagent's output contains a checkpoint signal (scan the **last 10 lines** for any of: `<!-- CHECKPOINT:CONTINUE -->`, `CHECKPOINT:CONTINUE`, or `**CHECKPOINT**:`):
 
 1. Read the agent's work log at `.dispatch/{AGENT_ID}-log.md`
-2. Spawn a **new** Agent tool call with the same role (use Continuation Agent Template from `references/prompt-templates.md`)
-3. The fresh agent reads the log and resumes from "Next Steps"
-4. Repeat until the agent completes without CHECKPOINT
+2. Check the `continuation` value in the log's frontmatter
+3. If continuation < 5: Spawn a **new** Agent tool call with the same role (use Continuation Agent Template from `references/prompt-templates.md`), setting `continuation: N+1`
+4. If continuation = 5: **Stop**. Present what has been completed so far and ask the user how to proceed with remaining work
+5. The fresh agent reads the log and resumes from "Next Steps"
+6. Repeat until the agent completes without CHECKPOINT or hits the continuation limit
+
+**Fallback detection**: If a subagent ends without a CHECKPOINT signal but a `.dispatch/{AGENT_ID}-log.md` exists with status `IN_PROGRESS` and non-empty "Next Steps", treat it as an implicit checkpoint and spawn a continuation.
 
 Agent Team mode: The Team Lead manages continuations internally — spawning fresh teammates when they signal CHECKPOINT.
 
@@ -199,7 +203,7 @@ See `references/context-persistence-protocol.md` for the full protocol.
 If **ESCALATE**: Present conflicting perspectives with pros/cons. Let the user decide.
 If **APPROVE**: Synthesize into a single coherent response in `{RESPONSE_LANGUAGE}`.
 
-**Cleanup** (if PERSIST=YES): After synthesis, inform the user that dispatch state is saved in `.dispatch/`. Suggest adding `.dispatch/` to `.gitignore` if desired.
+**Cleanup** (if PERSIST=YES): The `.dispatch/` directory is automatically added to `.gitignore` at creation time. After synthesis, inform the user that dispatch state is saved in `.dispatch/` and can be deleted if no longer needed.
 
 ## Rules
 

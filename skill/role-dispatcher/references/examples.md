@@ -329,7 +329,7 @@ Build a complete REST API for project management with auth, teams, projects, tas
 
 ### Checkpoint Scenario
 
-The Backend Developer agent (backend-01) is dispatched after the DBA completes the schema. It works through the API endpoints but reaches ~40 tool calls after implementing 5 of 12 route groups.
+The Backend Developer agent (backend-01) is dispatched after the DBA completes the schema. It works through the API endpoints but reaches 22 files touched after implementing 5 of 12 route groups.
 
 **Agent writes `.dispatch/backend-01-log.md`:**
 
@@ -337,8 +337,8 @@ The Backend Developer agent (backend-01) is dispatched after the DBA completes t
 ---
 agent: Backend Developer
 id: backend-01
-phase: 2 of 3
-tool_calls: ~38
+continuation: 0
+files_touched: 22
 status: CHECKPOINT
 last_updated: 2026-03-06T15:45:00
 ---
@@ -386,7 +386,7 @@ Checkpoint: Work log saved to `.dispatch/backend-01-log.md`. Remaining work: com
 
 ### Continuation
 
-Dispatcher detects the CHECKPOINT signal and spawns a fresh Backend Developer agent using the **Continuation Agent Template**:
+Dispatcher detects the CHECKPOINT signal (scans last 10 lines for `CHECKPOINT:CONTINUE`), reads the log, sees `continuation: 0`, and spawns a fresh Backend Developer agent using the **Continuation Agent Template** with `continuation: 1`:
 
 ```
 ## Your Role: Backend Developer (Continuation)
@@ -398,10 +398,18 @@ Dispatcher detects the CHECKPOINT signal and spawns a fresh Backend Developer ag
 - **Perspective**: You approach problems as a Backend Developer with deep expertise in API architecture
 
 ### Continuation Context
-You are continuing the work of a previous Backend Developer agent.
+You are continuing the work of a previous Backend Developer agent (continuation #1).
 **Read your work log first**: `.dispatch/backend-01-log.md`
 Resume from "Next Steps". Do NOT repeat completed work.
-Your tool call counter resets. Continue checkpointing as normal.
+Your files_touched counter resets to 0. Continue checkpointing as normal.
+**Max continuations**: 5. If you are continuation #5, prioritize completing the most
+critical remaining work — this is your last run.
+
+### Collaboration Context
+- You are one of 3 specialists working on this request
+- Your focus area: Express API + business logic
+- Other agents cover: Database schema (DBA), Auth + RBAC (Security Engineer)
+- Stay strictly within your domain
 
 ### Your Task
 Build a complete REST API for a project management tool (comment routes, file attachments, activity log, error handler, integration tests).
@@ -409,10 +417,12 @@ Build a complete REST API for a project management tool (comment routes, file at
 ### Language
 Respond in Italian
 
-### Context Persistence
+### Context Persistence (NON-NEGOTIABLE)
 - **Your work log**: `.dispatch/backend-01-log.md`
-- **Checkpoint frequency**: Write your work log every ~25 tool calls and at every natural phase boundary
-- **Continuation signal**: If you reach ~40 tool calls with more work remaining, write your log and end with `<!-- CHECKPOINT:CONTINUE -->`
+- **Global state**: `.dispatch/STATE.md` — update your status line when you checkpoint
+- **Track files touched**: Count every distinct file you read or modify
+- **Checkpoint triggers**: 15+ files → soft checkpoint, 25+ files → hard checkpoint
+- **Pre-exit verification**: Before ending, check triggers and update STATE.md
 ```
 
 The fresh agent reads the log, sees what's done and what's next, and continues building the remaining routes without repeating any work. It completes all remaining endpoints and finishes with status `COMPLETE` — no further checkpoint needed.

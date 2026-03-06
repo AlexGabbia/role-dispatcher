@@ -225,6 +225,37 @@ You: "use only DevOps Engineer with haiku"
 
 ---
 
+## Context Persistence (Long-Running Tasks)
+
+For complex tasks that push agents toward context limits, the dispatcher automatically enables **context persistence** — agents save their progress to disk and get replaced by fresh agents that continue from the saved state.
+
+### How it works
+
+1. The dispatcher creates a `.dispatch/` directory with a global `STATE.md`
+2. Each agent tracks files touched and writes periodic work logs to `.dispatch/{agent-id}-log.md`
+3. When an agent hits a checkpoint trigger (15+ files touched, phase boundary, or self-detected saturation), it saves its log and signals for continuation
+4. The dispatcher spawns a fresh agent with the same role that reads the log and resumes from "Next Steps"
+5. This repeats until the work is complete (max 5 continuations per agent)
+
+### When it activates
+
+- **Automatically** for FULL-path tasks with 3+ agents or high estimated complexity
+- **Never** for SKIP or FAST lane tasks
+- Zero user intervention required — agents self-monitor and the dispatcher handles continuations
+
+### What gets saved
+
+```
+.dispatch/
+  STATE.md              # Project goal, agent roster, global decisions
+  backend-01-log.md     # Backend Developer's progress, decisions, next steps
+  frontend-01-log.md    # Frontend Developer's progress, decisions, next steps
+```
+
+The `.dispatch/` directory is automatically added to `.gitignore`.
+
+---
+
 ## Agent Teams (Experimental)
 
 For large-scale tasks (5+ agents) or when agents need to discuss and challenge each other, the dispatcher uses **Agent Teams** — a Claude Code experimental feature that enables real inter-agent collaboration.
@@ -267,7 +298,8 @@ skill/role-dispatcher/
     prompt-templates.md             # Structured agent prompt templates
     collaboration-protocol.md       # Multi-agent coordination protocol
     model-selection-guide.md        # Model selection decision matrix
-    examples.md                     # 6 complete dispatching scenarios
+    examples.md                     # 9 complete dispatching scenarios
+    context-persistence-protocol.md # Agent checkpoint & continuation protocol
   assets/roles/
     01-software-development.md      # 13 roles
     02-design-ux.md                 # 11 roles
